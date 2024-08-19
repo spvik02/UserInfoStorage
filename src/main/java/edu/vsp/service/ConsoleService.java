@@ -62,24 +62,18 @@ public class ConsoleService {
     private void getUserInfo() {
         String emailForDetails = askAndGetStringFromUserInput(
                 "Enter email of the user you want to see details about and press Enter");
-//        System.out.println("Enter email of the user you want to see details about and press Enter");
-//        String emailForDetails = consoleInputReader.getStringFromUserInput();
         System.out.println(userRepository.findByEmail(emailForDetails));
     }
 
     private void deleteUser() {
         String emailForDeleting = askAndGetStringFromUserInput(
                 "Enter email of the user you want to delete and press Enter");
-//        System.out.println("Enter email of the user you want to delete and press Enter");
-//        String emailForDeleting = consoleInputReader.getStringFromUserInput();
         userRepository.deleteByEmail(emailForDeleting);
     }
 
     private void editUser() {
         String email = askAndGetStringFromUserInput(
                 "Enter email of the user you want to edit and press Enter:");
-//        System.out.println("Enter email of the user you want to edit and press Enter:");
-//        String email = consoleInputReader.getStringFromUserInput();
         Optional<User> userOptional = userRepository.findByEmail(email);
 
         if (userOptional.isPresent()) {
@@ -122,28 +116,19 @@ public class ConsoleService {
         }
     }
 
+    /**
+     * Writes a message to console and read user console input
+     * @param msg message to print
+     * @return string from user input
+     */
     private String askAndGetStringFromUserInput(String msg) {
         System.out.println(msg);
         return consoleInputReader.getStringFromUserInput();
     }
-//    private String getNameFromUserInput() {
-//        System.out.println(ENTER_NAME_STRING);
-//        return consoleInputReader.getStringFromUserInput();
-//    }
-//
-//    private String getSurnameFromUserInput() {
-//        System.out.println(ENTER_SURNAME_STRING);
-//        return consoleInputReader.getStringFromUserInput();
-//    }
-
-//    private String getEmailFromUserInput() {
-//        System.out.println(ENTER_EMAIL_STRING);
-//        return consoleInputReader.getStringFromUserInput();
-//    }
 
     /**
-     * Asks to enter string and split it to list using the specified delimiter.
-     *
+     * Writes a message to console, read user console input and split it to list using the specified delimiter.
+     * @param msg message to print
      * @return list
      */
     private List<String> askAndGetStringListFromUserInput(String msg) {
@@ -152,28 +137,6 @@ public class ConsoleService {
         list = consoleInputReader.getStringListFromUserInput(USER_INPUT_DELIMITER);
         return list;
     }
-
-//    /**
-//     * Asks to enter user roles and split it to list of roles.
-//     * @return list of roles
-//     */
-//    private List<String> getRolesFromUserInput() {
-//        List<String> roles;
-//        System.out.println(ENTER_ROLES_STRING);
-//        roles = consoleInputReader.getStringListFromUserInput(USER_INPUT_DELIMITER);
-//        return roles;
-//    }
-//
-//    /**
-//     * Asks to enter user phone numbers and split it to list of phone numbers.
-//     * @return list of roles
-//     */
-//    private List<String> getPhonesFromUserInput() {
-//        List<String> phones;
-//        System.out.println(ENTER_PHONES_STRING);
-//        phones = consoleInputReader.getStringListFromUserInput(USER_INPUT_DELIMITER);
-//        return phones;
-//    }
 
     /**
      * Asks to enter an email address and checks the format of the entered data.
@@ -196,6 +159,11 @@ public class ConsoleService {
         return email;
     }
 
+    /**
+     * Asks to enter roles and checks the format of the entered data.
+     * If entered data is invalid, then repeats the request.
+     * @return list of validated roles
+     */
     private List<String> getValidRolesFromUserInput() {
         List<String> roles;
         while (true) {
@@ -212,6 +180,11 @@ public class ConsoleService {
         return roles;
     }
 
+    /**
+     * Asks to enter phone numbers and checks the format of the entered data.
+     * If entered data is invalid, then repeats the request.
+     * @return list of validated phone numbers
+     */
     private List<String> getValidPhoneNumbersFromUserInput() {
         List<String> phones;
         while (true) {
@@ -228,6 +201,10 @@ public class ConsoleService {
         return phones;
     }
 
+    /**
+     * Asks to enter information about the user and checks validation
+     * @return User
+     */
     private User createUserFromConsoleInput() {
         String name, surname, email;
         List<String> roles, phones;
